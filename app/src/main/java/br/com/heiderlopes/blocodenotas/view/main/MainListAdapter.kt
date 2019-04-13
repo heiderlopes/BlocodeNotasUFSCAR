@@ -10,8 +10,9 @@ import br.com.heiderlopes.blocodenotas.model.Nota
 import kotlinx.android.synthetic.main.nota_item.view.*
 
 class MainListAdapter(
-    val context:Context,
-    val notas: List<Nota>
+    val context: Context,
+    val notas: List<Nota>,
+    val clickLista: (Nota) -> Unit
 ) :
     RecyclerView.Adapter<MainListAdapter.NotaViewHolder>() {
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): NotaViewHolder {
@@ -28,19 +29,22 @@ class MainListAdapter(
 
     override fun onBindViewHolder(p0: NotaViewHolder, position: Int) {
         val nota = notas[position]
-        p0.bindView(nota)
+        p0.bindView(nota, clickLista)
     }
 
 
     class NotaViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bindView(nota: Nota) = with(itemView) {
+        fun bindView(
+            nota: Nota,
+            clickLista: (Nota) -> Unit
+        ) = with(itemView) {
             tvTitulo.text = nota.titulo
             tvDescricao.text = nota.descricao
+
+            setOnClickListener { clickLista(nota) }
         }
 
     }
-
-
 }
