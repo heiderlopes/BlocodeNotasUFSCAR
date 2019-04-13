@@ -31,4 +31,26 @@ class NotaRepository {
 
     }
 
+
+
+    fun salvar(nota: Nota,
+                onComplete: (Nota) -> Unit,
+                onError: (Throwable?) -> Unit) {
+        getNotaAPI()
+            .salvar(nota)
+            .enqueue(object : Callback<Nota>{
+                override fun onFailure(call: Call<Nota>, t: Throwable) {
+                    onError(t)
+                }
+
+                override fun onResponse(call: Call<Nota>, response: Response<Nota>) {
+                    onComplete(response.body()!!)
+                }
+            })
+    }
+
+
+
+
+
 }
