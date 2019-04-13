@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,6 +15,7 @@ import br.com.heiderlopes.blocodenotas.R
 import br.com.heiderlopes.blocodenotas.model.Nota
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.loading.*
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +49,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var notasObserver = Observer<List<Nota>> {
+        rvNotas.adapter = MainListAdapter(
+            this,
+            it!!
+        )
+
+        rvNotas.layoutManager = LinearLayoutManager(this)
+        //rvNotas.layoutManager = GridLayoutManager(this, 3)
 
     }
 

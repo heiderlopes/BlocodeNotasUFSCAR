@@ -4,11 +4,11 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     <TextView android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:textSize="14sp"
+              android:textSize="20sp"
               android:textStyle="bold"
               android:text="Titulo"
               android:id="@+id/tvTitulo"/>
