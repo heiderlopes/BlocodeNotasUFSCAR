@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import br.com.heiderlopes.blocodenotas.R
 import br.com.heiderlopes.blocodenotas.model.Nota
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.loading.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.buscarTodos()
 
-        containerLoading.visibility = View.VISIBLE
-
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -43,13 +41,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun registerObservers() {
         mainViewModel.isLoading.observe(this, isLoadingObserver)
+        mainViewModel.mensagemErro.observe(this, mensagemErroObserver)
+        mainViewModel.notas.observe(this, notasObserver)
+    }
+
+    private var notasObserver = Observer<List<Nota>> {
+
+    }
+
+    private var mensagemErroObserver = Observer<String> {
+        if(it!!.isNotEmpty()) {
+            Toast.makeText(this,
+                it, Toast.LENGTH_LONG).show()
+        }
     }
 
     private var isLoadingObserver = Observer<Boolean> {
         if(it == true) {
-
+            containerLoading.visibility = View.VISIBLE
         } else {
-
+            containerLoading.visibility = View.GONE
         }
     }
 
